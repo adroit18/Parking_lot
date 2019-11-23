@@ -1,13 +1,13 @@
 import * as readline from 'readline';
-import Parking from './main/Parking/Parking';
-import { ParkingInterface, ParkingMapInterface } from './main/Parking/ParkingInterface';
-import { Nullable } from './main/Common/interface';
-import Ticket from './main/Ticket/Ticket';
-import { TicketStatus, TicketInterface } from './main/Ticket/TicketInterface';
-import { VehicleInterface } from './main/Vehicle/VehicleInterface';
-import Vehicle from './main/Vehicle/Vehicle';
-import { SpotInterface } from './main/Spot/SpotInterface';
-import { PARKING_ENGINE_COMMANDS } from './utils';
+import Parking from '../Parking/Parking';
+import { ParkingInterface, ParkingMapInterface } from '../Parking/ParkingInterface';
+import { Nullable } from '../Common/interface';
+import Ticket from '../Ticket/Ticket';
+import { TicketStatus, TicketInterface } from '../Ticket/TicketInterface';
+import { VehicleInterface } from '../Vehicle/VehicleInterface';
+import Vehicle from '../Vehicle/Vehicle';
+import { SpotInterface } from '../Spot/SpotInterface';
+import { PARKING_ENGINE_COMMANDS } from '../../utils';
 class ParkingEngine {
     private interactiveBot:any;
     private commandTokeniser:string = " ";

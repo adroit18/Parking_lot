@@ -58,4 +58,133 @@ describe("Parking Area Test", () => {
             throw new Error('could not get parking map');
         }
     });
+    it("set color to spot map", () => {
+        const parking = new Parking("parking Area 1", 6);
+        parking.setParkingMap();
+        const parkingMap = parking.getParkingMap();
+        if(parkingMap){
+            let nextSpot = parking.getNextAvailableParkingSpot();
+            if(nextSpot){
+                const color = "Green";
+                const regNum = "KA-01-HH-1236";
+                nextSpot.assignVehicle(new Vehicle(color,regNum));
+                parking.setColorToSpot(color,nextSpot);
+                expect(parking.getColorToSpot(color).length).toBe(1);
+            }else{
+                throw new Error("set color to spot map failed");
+            }
+        }
+    });
+    it("get color to spot map", () => {
+        const parking = new Parking("parking Area 1", 6);
+        parking.setParkingMap();
+        const parkingMap = parking.getParkingMap();
+        if(parkingMap){
+            let nextSpot = parking.getNextAvailableParkingSpot();
+            if(nextSpot){
+                const color = "Green";
+                const regNum = "KA-01-HH-1236";
+                nextSpot.assignVehicle(new Vehicle(color,regNum));
+                parking.setColorToSpot(color,nextSpot);
+                expect(parking.getColorToSpot(color).length).toBe(1);
+            }else{
+                throw new Error("get color to spot map failed");
+            }
+        }
+    });
+    it("remove from color to spot map", () => {
+        const parking = new Parking("parking Area 1", 6);
+        parking.setParkingMap();
+        const parkingMap = parking.getParkingMap();
+        if(parkingMap){
+            let nextSpot = parking.getNextAvailableParkingSpot();
+            if(nextSpot){
+                const color = "Green";
+                const regNum = "KA-01-HH-1236";
+                nextSpot.assignVehicle(new Vehicle(color,regNum));
+                parking.setColorToSpot(color,nextSpot);
+                expect(parking.getColorToSpot(color).length).toBe(1);
+                nextSpot = parking.getNextAvailableParkingSpot();
+                if(nextSpot){
+                    const color = "Green";
+                    const regNum = "KA-01-HH-1237";
+                    nextSpot.assignVehicle(new Vehicle(color,regNum));
+                    parking.setColorToSpot(color,nextSpot);
+                    expect(parking.getColorToSpot(color).length).toBe(2);
+                    const nextSpotId= nextSpot.getSpotId();
+                    if(nextSpotId){
+                        parking.removeSpotFromColorToSpot(color,nextSpotId);
+                    }
+                    expect(parking.getColorToSpot(color).length).toBe(1);
+                }
+            }else{
+                throw new Error("remove from color to spot map failed");
+            }
+        }
+    });
+    it("set reg to spot map", () => {
+        const parking = new Parking("parking Area 1", 6);
+        parking.setParkingMap();
+        const parkingMap = parking.getParkingMap();
+        if(parkingMap){
+            let nextSpot = parking.getNextAvailableParkingSpot();
+            if(nextSpot){
+                const color = "Green";
+                const regNum = "KA-01-HH-1236";
+                nextSpot.assignVehicle(new Vehicle(color,regNum));
+                parking.setRegToSpot(regNum,nextSpot);
+                const spotHavingReg = parking.getRegToSpot(regNum);
+                if(spotHavingReg){
+                    expect(spotHavingReg.getSpotId()).toBe(nextSpot.getSpotId());
+                }
+            }else{
+                throw new Error("get color to spot map failed");
+            }
+        }
+    });
+    it("get reg to spot map", () => {
+        const parking = new Parking("parking Area 1", 6);
+        parking.setParkingMap();
+        const parkingMap = parking.getParkingMap();
+        if(parkingMap){
+            let nextSpot = parking.getNextAvailableParkingSpot();
+            if(nextSpot){
+                const color = "Green";
+                const regNum = "KA-01-HH-1236";
+                nextSpot.assignVehicle(new Vehicle(color,regNum));
+                parking.setRegToSpot(regNum,nextSpot);
+                const spotHavingReg = parking.getRegToSpot(regNum);
+                if(spotHavingReg){
+                    expect(spotHavingReg.getSpotId()).toBe(nextSpot.getSpotId());
+                }
+            }else{
+                throw new Error("get color to spot map failed");
+            }
+        }
+    });
+    it("remove from reg to spot map", () => {
+        const parking = new Parking("parking Area 1", 6);
+        parking.setParkingMap();
+        const parkingMap = parking.getParkingMap();
+        if(parkingMap){
+            let nextSpot = parking.getNextAvailableParkingSpot();
+            if(nextSpot){
+                const color = "Green";
+                const regNum = "KA-01-HH-1236";
+                nextSpot.assignVehicle(new Vehicle(color,regNum));
+                parking.setRegToSpot(regNum,nextSpot);
+                const spotHavingRegBfr = parking.getRegToSpot(regNum);
+                if(spotHavingRegBfr){
+                    expect(spotHavingRegBfr.getSpotId()).toBe(nextSpot.getSpotId());
+                    parking.removeSpotFromRegToSpot(regNum);
+                    const spotHavingRegAft = parking.getRegToSpot(regNum);
+                    if(spotHavingRegAft){
+                        expect(spotHavingRegAft.getSpotId()).toBe(null);
+                    }
+                }
+            }else{
+                throw new Error("get color to spot map failed");
+            }
+        }
+    });
   });
