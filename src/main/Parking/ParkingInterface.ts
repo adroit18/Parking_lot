@@ -8,7 +8,7 @@ interface colorToSpotInterface {
     [key: string] : Array<SpotInterface>;
 }
 interface RegToSpotInterface {
-    [key: string] : Array<SpotInterface>;
+    [key: string] : SpotInterface;
 }
 
 interface ParkingInterface {
@@ -20,7 +20,7 @@ interface ParkingInterface {
     setColorToSpot(key:string,Spot:SpotInterface):void;
     getColorToSpot(key:string):Array<SpotInterface>
     setRegToSpot(key:string,spot:SpotInterface):void
-    getRegToSpot(key:string):Array<SpotInterface>
+    getRegToSpot(key:string):Nullable<SpotInterface>
     getParkingCapacity():number;
 }
 interface ParkingConstructor {

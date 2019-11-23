@@ -66,19 +66,14 @@ class Parking implements ParkingInterface{
     }
     public setRegToSpot(key:string,spot:SpotInterface):void{
         if(this.regToSpot){
-            if(this.regToSpot[key]){
-                this.regToSpot[key].push(spot);
-            }
-            else{
-                this.regToSpot[key] = [spot];
-            }
+            this.regToSpot[key] = spot;
         }   
     }
-    public getRegToSpot(key:string):Array<SpotInterface>{
+    public getRegToSpot(key:string):Nullable<SpotInterface>{
         if(this.regToSpot){
             return this.regToSpot[key];
         }else{
-            return [];
+            return null;
         }
     }
 }

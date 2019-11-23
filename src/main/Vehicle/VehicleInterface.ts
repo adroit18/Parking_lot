@@ -5,7 +5,7 @@ interface VehicleInterface {
     setColor(color:string):void;
     getRegNum():Nullable<string>;
     setRegNum(regId:string):void;
-    getParkingTicket():Nullable<any>;
+    getParkingTicket():Nullable<TicketInterface>;
     setParkingTicket(parkingTicket:Nullable<TicketInterface>):void;
     assignTicket(parkingTicket:Nullable<TicketInterface>):void;
 }

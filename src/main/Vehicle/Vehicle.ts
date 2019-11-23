@@ -25,8 +25,8 @@ class Vehicle implements VehicleInterface{
     public setRegNum(regId:string):void{
         this.regNum = regId;
     }
-    public getParkingTicket():Nullable<any>{
-        return this.color;
+    public getParkingTicket():Nullable<TicketInterface>{
+        return this.parkingTicket;
     }
     public setParkingTicket(parkingTicket:Nullable<TicketInterface>):void{
         this.parkingTicket = parkingTicket;
