@@ -141,7 +141,7 @@ class ParkingEngine {
         if(this.parkingArea){
             const regNumWiseInfo:Nullable<SpotInterface> = this.parkingArea.getRegToSpot(regNumQuery);
             if(regNumWiseInfo){
-                console.log(regNumWiseInfo.getSpotId());
+                console.log(`${regNumWiseInfo.getSpotId()}`);
             }else{
                 console.log("Not found");
             }
@@ -150,7 +150,7 @@ class ParkingEngine {
         }   
     }
     private processCommands(command:string):void{
-        // console.log(command,"welcome man/women****************************");
+        // console.log('command',"welcome man/women****************************");
         const tokeniseCommand:string[] = command.split(this.commandTokeniser);
         const step:string = tokeniseCommand[0];
         if(step === "create_parking_lot" || step === "c"){

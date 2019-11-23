@@ -7,14 +7,12 @@
     "local": "run-p local:*",
     "local:server": "webpack --config ./webpack.config.js --watch",
     "local:serve": "nodemon --inspect ./build/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Deepak Uniyal",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^12.12.11",
     "ts-loader": "^6.2.1",
-    "typescript": "^3.7.2",
     "nodemon": "^2.0.1",
     "webpack": "^4.41.2",
     "npm-run-all": "^4.1.1",
@@ -22,6 +20,11 @@
     "webpack-cli": "^3.3.10",
     "clean-webpack-plugin": "^3.0.0",
     "terser-webpack-plugin": "^2.2.1",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.12",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2"
   }
 }
