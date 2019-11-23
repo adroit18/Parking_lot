@@ -7,6 +7,7 @@ import { TicketStatus, TicketInterface } from './main/Ticket/TicketInterface';
 import { VehicleInterface } from './main/Vehicle/VehicleInterface';
 import Vehicle from './main/Vehicle/Vehicle';
 import { SpotInterface } from './main/Spot/SpotInterface';
+import { PARKING_ENGINE_COMMANDS } from './utils';
 class ParkingEngine {
     private interactiveBot:any;
     private commandTokeniser:string = " ";
@@ -153,24 +154,36 @@ class ParkingEngine {
         // console.log('command',"welcome man/women****************************");
         const tokeniseCommand:string[] = command.split(this.commandTokeniser);
         const step:string = tokeniseCommand[0];
-        if(step === "create_parking_lot" || step === "c"){
-            this.createParkingArea(tokeniseCommand);
-        }else if(step === "park" || step === "p"){
-            this.proceedParkingProcess(tokeniseCommand);
-        }else if(step === "leave" || step === "l"){
-            this.proceedExitProcess(tokeniseCommand);
-        }else if(step === "status" || step === "s"){
-           this.getStatusOfParkingArea(tokeniseCommand);
-        }else if(step === "registration_numbers_for_cars_with_colour" || step === "rc"){
-            this.getRegNumFromColor(tokeniseCommand);
-        }else if(step === "slot_numbers_for_cars_with_colour" || step === "rs"){
-            this.getSlotNumsFromColor(tokeniseCommand);
-        }else if(step === "slot_number_for_registration_number" || step === "rn"){
-            this.getSlotNumFromRegNum(tokeniseCommand); 
-        }else if(step === "exit"){
-            this.closeParker();
-            return;
-        } 
+        console.log(step);
+        switch (step){
+            case PARKING_ENGINE_COMMANDS.CREATE_PARKING_LOT:
+                this.createParkingArea(tokeniseCommand);
+                break;
+            case PARKING_ENGINE_COMMANDS.PARK:
+                this.proceedParkingProcess(tokeniseCommand);
+                break;
+            case PARKING_ENGINE_COMMANDS.LEAVE:
+                this.proceedExitProcess(tokeniseCommand);
+                break;
+            case PARKING_ENGINE_COMMANDS.STATUS:
+                this.getStatusOfParkingArea(tokeniseCommand);
+                break;
+            case PARKING_ENGINE_COMMANDS.REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR:
+                this.getRegNumFromColor(tokeniseCommand);
+                break;
+            case PARKING_ENGINE_COMMANDS.SLOT_NUMBERS_FOR_CARS_WITH_COLOUR:
+                this.getSlotNumsFromColor(tokeniseCommand);
+                break;
+            case PARKING_ENGINE_COMMANDS.SLOT_NUMBER_FOR_REGISTRATION_NUMBER:
+                this.getSlotNumFromRegNum(tokeniseCommand); 
+                break;
+            case PARKING_ENGINE_COMMANDS.EXIT:
+                this.closeParker();
+                process.exit();
+                break;
+            default:
+                console.log("Please Enter a valid command");
+        }
         this.startParker();
     }
 }
