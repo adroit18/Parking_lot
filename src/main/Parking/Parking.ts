@@ -57,6 +57,23 @@ class Parking implements ParkingInterface{
             }
         }   
     }
+    public removeSpotFromColorToSpot(key:string,spotId:number):void{
+        if(this.colorToSpot){
+            const spots:Array<SpotInterface> = this.colorToSpot[key]
+            let toDeleteIndex:Nullable<number> = null;
+            if(this.colorToSpot[key]){
+                for(let i = 0;i<spots.length;i+=1){
+                    if(spots[i].getSpotId() === spotId){
+                           toDeleteIndex = i; 
+                           break;
+                    }
+                }
+                if(toDeleteIndex){
+                    spots.splice(toDeleteIndex, 1);    
+                }
+            }
+        }
+    }
     public getColorToSpot(key:string):Array<SpotInterface>{
         if(this.colorToSpot){
             return this.colorToSpot[key];
@@ -68,6 +85,9 @@ class Parking implements ParkingInterface{
         if(this.regToSpot){
             this.regToSpot[key] = spot;
         }   
+    }
+    public removeSpotFromRegToSpot(key:string):void{
+        delete this.regToSpot[key]
     }
     public getRegToSpot(key:string):Nullable<SpotInterface>{
         if(this.regToSpot){

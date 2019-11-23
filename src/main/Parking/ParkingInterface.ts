@@ -19,7 +19,9 @@ interface ParkingInterface {
     getParkingMap():Nullable<ParkingMapInterface>;
     setColorToSpot(key:string,Spot:SpotInterface):void;
     getColorToSpot(key:string):Array<SpotInterface>
+    removeSpotFromColorToSpot(key:string,spotId:number):void
     setRegToSpot(key:string,spot:SpotInterface):void
+    removeSpotFromRegToSpot(key:string):void;
     getRegToSpot(key:string):Nullable<SpotInterface>
     getParkingCapacity():number;
 }
