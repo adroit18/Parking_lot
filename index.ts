@@ -1,5 +1,4 @@
-"use strict";
-function a(x:String){
-    console.log(x);
-}
-a("Deepak Uniyal") 
+import {ParkingEngine} from './src/ParkingEngine';
+
+ let parkingEngine = new ParkingEngine();
+ parkingEngine.startParker();

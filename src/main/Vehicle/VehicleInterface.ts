@@ -1,16 +1,16 @@
 import {Nullable} from './../Common/interface';
-
+import {TicketInterface} from './../Ticket/TicketInterface'
 interface VehicleInterface {
     getColor():Nullable<string>;
     setColor(color:string):void;
     getRegNum():Nullable<string>;
     setRegNum(regId:string):void;
     getParkingTicket():Nullable<any>;
-    setParkingTicket(parkingTicket:Nullable<any>/* Ticket*/):void;
-    assignTicket(parkingTicket:Nullable<any>/* Ticket*/):void;
+    setParkingTicket(parkingTicket:Nullable<TicketInterface>):void;
+    assignTicket(parkingTicket:Nullable<TicketInterface>):void;
 }
 interface VehicleConstructor {
-    new (color:string,regNum:string,parkingTicket:any/* Ticket*/): VehicleInterface;
+    new (color:string,regNum:string,parkingTicket:TicketInterface): VehicleInterface;
 }
 
 export {VehicleInterface,VehicleConstructor}

@@ -1,6 +1,6 @@
 import { VehicleInterface } from "./VehicleInterface";
 import {Nullable} from './../Common/interface';
-
+import {TicketInterface} from './../Ticket/TicketInterface'
 class Vehicle implements VehicleInterface{
     private color : Nullable<string>;
     private regNum : Nullable<string>;
@@ -28,10 +28,10 @@ class Vehicle implements VehicleInterface{
     public getParkingTicket():Nullable<any>{
         return this.color;
     }
-    public setParkingTicket(parkingTicket:Nullable<any>/* Ticket*/):void{
+    public setParkingTicket(parkingTicket:Nullable<TicketInterface>):void{
         this.parkingTicket = parkingTicket;
     }
-    public assignTicket(parkingTicket:Nullable<any>/* Ticket*/):void{
+    public assignTicket(parkingTicket:Nullable<TicketInterface>):void{
         this.setParkingTicket(parkingTicket);
     }
 }
