@@ -1,12 +1,11 @@
 import {SpotInterface} from './../Spot/SpotInterface';
-import { VehicleInterface } from "../Vehicle/VehicleInterface";
 import { Nullable } from '../Common/interface';
 
 interface ParkingMapInterface {
-    [key: string] : string;
+    [key: string] : SpotInterface;
 }
-interface ColorToRegInterface {
-    [key: string] : Array<VehicleInterface>;
+interface colorToSpotInterface {
+    [key: string] : Array<SpotInterface>;
 }
 interface RegToSpotInterface {
     [key: string] : Array<SpotInterface>;
@@ -15,19 +14,21 @@ interface RegToSpotInterface {
 interface ParkingInterface {
     setParkingName(name:string): void;
     getParkingName():Nullable<string>;
-    setParkingMap(parkingMap:Nullable<ParkingMapInterface>):void;
+    getNextAvailableParkingSpot():Nullable<SpotInterface>;
+    setParkingMap():void;
     getParkingMap():Nullable<ParkingMapInterface>;
-    setColorToReg(key:string,Vehicle:VehicleInterface):void;
-    getColorToReg(key:string):Array<VehicleInterface>
+    setColorToSpot(key:string,Spot:SpotInterface):void;
+    getColorToSpot(key:string):Array<SpotInterface>
     setRegToSpot(key:string,spot:SpotInterface):void
     getRegToSpot(key:string):Array<SpotInterface>
+    getParkingCapacity():number;
 }
 interface ParkingConstructor {
     new (name:Nullable<string>): ParkingInterface;
 }
 export  {
     ParkingMapInterface,
-    ColorToRegInterface,
+    colorToSpotInterface,
     RegToSpotInterface,
     ParkingInterface,
     ParkingConstructor

@@ -4,11 +4,11 @@ import {TicketInterface} from './../Ticket/TicketInterface'
 class Vehicle implements VehicleInterface{
     private color : Nullable<string>;
     private regNum : Nullable<string>;
-    private parkingTicket : Nullable<any>; //Ticket
+    private parkingTicket : Nullable<TicketInterface>;
     
     constructor(color:Nullable<string> = null , 
                 regNum:Nullable<string> = null, 
-                parkingTicket:Nullable<any> = null/* Ticket*/){
+                parkingTicket:Nullable<TicketInterface> = null){
     this.color = color;
     this.regNum = regNum;
     this.parkingTicket = parkingTicket;

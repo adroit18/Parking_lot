@@ -1,25 +1,25 @@
 import { Nullable } from "../Common/interface";
 import {SpotInterface} from './../Spot/SpotInterface';
-import { VehicleInterface } from "../Vehicle/VehicleInterface";
+import Spot from "./../Spot/Spot";
 import {
     ParkingMapInterface,
-    ColorToRegInterface,
+    colorToSpotInterface,
     RegToSpotInterface,
     ParkingInterface,
     } from "../Parking/ParkingInterface";
 
 class Parking implements ParkingInterface{
     private name: Nullable<string>;
-    private numberOfSpots:Nullable<number>;
-    private parkingMap: Nullable<ParkingMapInterface>;
-    private colorToReg: Nullable<ColorToRegInterface>;
-    private regToSpot: Nullable<RegToSpotInterface>;
+    private numberOfSpots:number;
+    private parkingMap: ParkingMapInterface = {}; //parking id : spots:
+    private colorToSpot: colorToSpotInterface = {}; // color : spot
+    private regToSpot: RegToSpotInterface = {}; //regNum: spot
 
-    constructor(name:Nullable<string>=null,numberOfSpots:Nullable<number>=null) {
+    constructor(name:Nullable<string>=null,numberOfSpots:number) {
         this.name = name;
         this.numberOfSpots = numberOfSpots
         this.parkingMap = {}; 
-        this.colorToReg = {};
+        this.colorToSpot = {};
         this.regToSpot = {};
     }
     public setParkingName(name:string):void{
@@ -28,31 +28,38 @@ class Parking implements ParkingInterface{
     public getParkingName():Nullable<string>{
         return this.name;
     }
-    public setParkingSpots(numberOfSpots:Nullable<number>):void{
-        this.numberOfSpots = numberOfSpots;
-    }
-    public getParkingSpots():Nullable<number>{
+    public getParkingCapacity():number{
         return this.numberOfSpots;
     }
-    public setParkingMap(parkingMap:Nullable<ParkingMapInterface>={}):void{
-        this.parkingMap = parkingMap;
+    public getNextAvailableParkingSpot():Nullable<SpotInterface>{
+        for(let i = 0; i<this.numberOfSpots;i++){
+            if(this.parkingMap[i].isSpotAvailable()){
+                return this.parkingMap[i];
+            }
+        }
+        return null;
     }
+    public setParkingMap():void{
+        for(let i = 0; i<this.numberOfSpots;i+=1){
+            this.parkingMap[i] = new Spot(i+1);
+        }
+    } 
     public getParkingMap():Nullable<ParkingMapInterface>{
         return this.parkingMap;
     }
-    public setColorToReg(key:string,Vehicle:VehicleInterface):void{
-        if(this.colorToReg){
-            if(this.colorToReg[key]){
-                this.colorToReg[key].push(Vehicle);
+    public setColorToSpot(key:string,Spot:SpotInterface):void{
+        if(this.colorToSpot){
+            if(this.colorToSpot[key]){
+                this.colorToSpot[key].push(Spot);
             }
             else{
-                this.colorToReg[key] = [Vehicle];
+                this.colorToSpot[key] = [Spot];
             }
         }   
     }
-    public getColorToReg(key:string):Array<VehicleInterface>{
-        if(this.colorToReg){
-            return this.colorToReg[key];
+    public getColorToSpot(key:string):Array<SpotInterface>{
+        if(this.colorToSpot){
+            return this.colorToSpot[key];
         }else{
             return [];
         }
@@ -75,3 +82,5 @@ class Parking implements ParkingInterface{
         }
     }
 }
+
+export default Parking;

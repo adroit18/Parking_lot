@@ -18,3 +18,4 @@ class Ticket implements TicketInterface{
         return this.ticketStatus;
     }
 }
+export default Ticket;

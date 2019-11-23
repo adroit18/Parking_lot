@@ -21,7 +21,7 @@ class Spot implements SpotInterface
     public getParkedVehicle():Nullable<VehicleInterface>{
         return this.Vehicle;
     }
-    public setParkedVehicle(Vehicle:VehicleInterface):void{
+    private setParkedVehicle(Vehicle:Nullable<VehicleInterface>):void{
         this.Vehicle = Vehicle;
     }
     public isSpotAvailable():boolean{
@@ -32,6 +32,7 @@ class Spot implements SpotInterface
         this.isAvailable = false;
     } 
 	public removeVehicle():void {
+        this.setParkedVehicle(null);
         this.isAvailable = true;
     } 
 } 
