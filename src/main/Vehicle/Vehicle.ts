@@ -28,7 +28,7 @@ class Vehicle implements VehicleInterface{
     public getParkingTicket():Nullable<TicketInterface>{
         return this.parkingTicket;
     }
-    public setParkingTicket(parkingTicket:Nullable<TicketInterface>):void{
+    private setParkingTicket(parkingTicket:Nullable<TicketInterface>):void{
         this.parkingTicket = parkingTicket;
     }
     public assignTicket(parkingTicket:Nullable<TicketInterface>):void{

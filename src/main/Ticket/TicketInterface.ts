@@ -6,9 +6,9 @@ enum TicketStatus {
     LOST   = "LOST"
 }
 interface TicketInterface {
-    setTicketStatusActive(ticketStatus:TicketStatus):void
-    setTicketStatusPaid(ticketStatus:TicketStatus):void
-    setTicketStatusLost(ticketStatus:TicketStatus):void
+    setTicketStatusActive():void
+    setTicketStatusPaid():void
+    setTicketStatusLost():void
     getTicketStatus():Nullable<TicketStatus>
 }
 interface TicketConstructor {

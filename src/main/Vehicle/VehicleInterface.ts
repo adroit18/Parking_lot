@@ -6,7 +6,6 @@ interface VehicleInterface {
     getRegNum():Nullable<string>;
     setRegNum(regId:string):void;
     getParkingTicket():Nullable<TicketInterface>;
-    setParkingTicket(parkingTicket:Nullable<TicketInterface>):void;
     assignTicket(parkingTicket:Nullable<TicketInterface>):void;
 }
 interface VehicleConstructor {

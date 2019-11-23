@@ -10,7 +10,11 @@ class Spot implements SpotInterface
     constructor(spotId:Nullable<number>=null,Vehicle:Nullable<VehicleInterface>=null){
         this.spotId = spotId
         this.Vehicle = Vehicle;
-        this.isAvailable = true;
+        if(Vehicle){
+            this.isAvailable = false;
+        }else{
+            this.isAvailable = true;
+        }
     }
     public getSpotId():Nullable<number>{
         return this.spotId;

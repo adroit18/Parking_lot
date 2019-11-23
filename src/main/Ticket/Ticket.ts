@@ -5,16 +5,16 @@ class Ticket implements TicketInterface{
     constructor(ticketStatus:Nullable<TicketStatus>=null){
         this.ticketStatus = ticketStatus;
     }
-    setTicketStatusActive(ticketStatus:TicketStatus):void{
+    public setTicketStatusActive():void{
         this.ticketStatus = TicketStatus.ACTIVE;
     }
-    setTicketStatusPaid(ticketStatus:TicketStatus):void{
+    public setTicketStatusPaid():void{
         this.ticketStatus = TicketStatus.PAID;
     }
-    setTicketStatusLost(ticketStatus:TicketStatus):void{
+    public setTicketStatusLost():void{
         this.ticketStatus = TicketStatus.LOST;
     }
-    getTicketStatus():Nullable<TicketStatus>{
+    public getTicketStatus():Nullable<TicketStatus>{
         return this.ticketStatus;
     }
 }
