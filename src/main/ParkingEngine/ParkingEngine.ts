@@ -19,8 +19,10 @@ class ParkingEngine {
             terminal: false
         });
     }
+    private logOutput(logThis:string):void{
+        console.log(logThis);
+    }
     public startParker():void{
-        // console.log(process.argv);
         this.interactiveBot.question('', (answer:string)=>this.processCommands(answer))
     }
     private closeParker():void{
@@ -31,9 +33,9 @@ class ParkingEngine {
         if(numberofSlots>0){
             this.parkingArea = new Parking(null ,numberofSlots);
             this.parkingArea.setParkingMap();
-            console.log(`Created a parking lot with ${numberofSlots} slots`)
+            this.logOutput(`Created a parking lot with ${numberofSlots} slots`)
         }else{
-            console.log(`Please enter number greater than zero`);
+            this.logOutput(`Please enter number greater than zero`);
         }
     }
     private proceedParkingProcess(tokeniseCommand:string[]):void{
@@ -44,15 +46,20 @@ class ParkingEngine {
         if(this.parkingArea){
             const spot:Nullable<SpotInterface> = this.parkingArea.getNextAvailableParkingSpot();
             if(spot && spot.isSpotAvailable()){
-                spot.assignVehicle(vehicle);
-                this.parkingArea.setColorToSpot(color,spot);
-                this.parkingArea.setRegToSpot(regNum,spot);
-                console.log(`Allocated slot number: ${spot.getSpotId()}`)
+                const isVehicleDuplication = this.parkingArea.getRegToSpot(regNum);
+                if(isVehicleDuplication){
+                    return;
+                }else{
+                    spot.assignVehicle(vehicle);
+                    this.parkingArea.setColorToSpot(color,spot);
+                    this.parkingArea.setRegToSpot(regNum,spot);
+                    this.logOutput(`Allocated slot number: ${spot.getSpotId()}`)
+                }
             }else{
-                console.log("Sorry, parking lot is full");
+                this.logOutput("Sorry, parking lot is full");
             }
         }else{
-            console.log("Please initialise a parking area first");
+            this.logOutput("Please initialise a parking area first");
         }
    }
    private proceedExitProcess(tokeniseCommand:string[]):void{
@@ -74,12 +81,12 @@ class ParkingEngine {
                     }
                 }
                 spot.removeVehicle();
-                console.log(`Slot number ${spotNumberToEmpty} is free`);
+                this.logOutput(`Slot number ${spotNumberToEmpty} is free`);
             }else{
-                console.log("Parking Map not initialised");
+                this.logOutput("Parking Map not initialised");
             }
         }else{
-            console.log("Please initialise a parking area first");
+            this.logOutput("Please initialise a parking area first");
         }
     }
     private getStatusOfParkingArea(tokeniseCommand:string[]):void{
@@ -87,22 +94,22 @@ class ParkingEngine {
             const currentParkingMap:Nullable<ParkingMapInterface> = this.parkingArea.getParkingMap();
             const numberOfSlots:number = this.parkingArea.getParkingCapacity();
             if(currentParkingMap){
-                console.log(`Slot No.    Registration No    Colour`);
+                this.logOutput(`Slot No.    Registration No    Colour`);
                 for(let i = 0;i<numberOfSlots;i++){
                     const parkedVehicle:Nullable<VehicleInterface> = currentParkingMap[i].getParkedVehicle();
                     if(parkedVehicle){
                         let regNum = parkedVehicle.getRegNum();
                         let color  = parkedVehicle.getColor();
                         if(regNum && color){
-                           console.log(`${currentParkingMap[i].getSpotId()}           ${regNum}      ${color}`);
+                           this.logOutput(`${currentParkingMap[i].getSpotId()}           ${regNum}      ${color}`);
                         }
                     }
                 }
             }else{
-                console.log("Parking Map not initialised");
+                this.logOutput("Parking Map not initialised");
             }
         }else{
-            console.log("Please initialise a parking area first");
+            this.logOutput("Please initialise a parking area first");
         }
     }
     private getRegNumFromColor(tokeniseCommand:string[]):void{
@@ -116,9 +123,9 @@ class ParkingEngine {
                       regNumsForColor.push(vehicle.getRegNum());
                   }
             }
-            console.log(regNumsForColor.join(", "))
+            this.logOutput(regNumsForColor.join(", "))
         }else{
-            console.log("Please initialise a parking area first");
+            this.logOutput("Please initialise a parking area first");
         }
     }
     private getSlotNumsFromColor(tokeniseCommand:string[]):void{
@@ -132,9 +139,9 @@ class ParkingEngine {
                         slotNumbersForColor.push(spotId);
                 }
             }
-            console.log(slotNumbersForColor.join(", "))
+            this.logOutput(slotNumbersForColor.join(", "))
         }else{
-            console.log("Please initialise a parking area first");
+            this.logOutput("Please initialise a parking area first");
         }
     }
     private getSlotNumFromRegNum(tokeniseCommand:string[]):void{
@@ -142,19 +149,17 @@ class ParkingEngine {
         if(this.parkingArea){
             const regNumWiseInfo:Nullable<SpotInterface> = this.parkingArea.getRegToSpot(regNumQuery);
             if(regNumWiseInfo){
-                console.log(`${regNumWiseInfo.getSpotId()}`);
+                this.logOutput(`${regNumWiseInfo.getSpotId()}`);
             }else{
-                console.log("Not found");
+                this.logOutput("Not found");
             }
         }else{
-            console.log("Please initialise a parking area first");
+            this.logOutput("Please initialise a parking area first");
         }   
     }
     private processCommands(command:string):void{
-        // console.log('command',"welcome man/women****************************");
         const tokeniseCommand:string[] = command.split(this.commandTokeniser);
         const step:string = tokeniseCommand[0];
-        console.log(step);
         switch (step){
             case PARKING_ENGINE_COMMANDS.CREATE_PARKING_LOT:
                 this.createParkingArea(tokeniseCommand);
@@ -182,7 +187,7 @@ class ParkingEngine {
                 process.exit();
                 break;
             default:
-                console.log("Please Enter a valid command");
+                this.logOutput("Please Enter a valid command");
         }
         this.startParker();
     }

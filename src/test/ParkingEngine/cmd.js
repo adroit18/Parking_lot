@@ -26,18 +26,15 @@ function execute(processPath,args = [],inputs = [],opts = {}) {
       opts = inputs;
       inputs = [];
     }
-  
     const { env = null, timeout = 100 } = opts;
     const childProcess = createProcess(processPath, args, env);
     childProcess.stdin.setEncoding('utf-8');
-    
     let currentInputTimeout;
     const loop = inputs => {
       if (!inputs.length) {
         childProcess.stdin.end();
         return;
       }
-  
       currentInputTimeout = setTimeout(() => {
         childProcess.stdin.write(inputs[0]);
         loop(inputs.slice(1));
