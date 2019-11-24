@@ -1,23 +1,35 @@
 #!/bin/bash  
+echo "####################################################################################################"
+
 echo "********** This is a shell script for setup **********"  
 
-echo "********** Fetching Sudo apt-get update, Running  sudo apt-get update **********"  
-echo "********** not running sudo apt-get update **********"
+echo "#################### If needed, please make sure  ####################"  
+echo "#################### You are running this script with admin privileges  ####################"  
+echo "#################### i.e. sudo su - [in ubuntu if sudo package available], or su - [in docker] ####################"  
 
-echo "********** Running  sudo apt-get install curl **********"  
-sudo apt-get install curl
+echo "####################################################################################################"
 
-echo "********** Fetching Latest Node & NPM Repo **********"  
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+echo "********** Running : apt-get update **********"  
+apt-get update
+
+echo "********** Running : apt-get install curl **********"  
+apt-get install curl
+
+echo "********** Fetching : Latest Node & NPM Repo **********"  
+curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
 echo "********** Installing Latest Node & NPM **********"  
-echo "********** Installation may be halted due pre-existing nodejs/npm version , try running sudo apt-get remove nodejs, verify if nodejs removed by 'which node' or node --version **********"  
+echo "********** Installation may be halted due pre-existing nodejs/npm version , try running  apt-get remove nodejs, verify if nodejs removed by 'which node' or node --version **********"  
 
-sudo apt-get install -y nodejs 
+apt-get install -y nodejs 
 
-echo "********** Node and Npm Version, Please make sure node version >= 10.x.x and npm version = 6.x.x  **********"  
+echo "####################################################################################################"
+
+echo "#################### Node and Npm Version, Please make sure node version >= 10.x.x and npm version = 6.x.x  ####################"  
 node --version
 npm --version
+
+echo "####################################################################################################"
 
 echo "********** Moving to src Directory **********"  
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
@@ -35,10 +47,14 @@ npm run prod
 echo "********** Running Test Cases **********"  
 npm run test
 
+echo "####################################################################################################"
+
 echo "Done running setup commands, build folder contains bundled code"  
 
 echo "For running Functional Spec Ruby and gem install bundler are needed, these dependencies are not downloaded via this script"  
 echo "As directed, follow README.md for that"  
+
+echo "####################################################################################################"
 
 # Add script to:
 # * Install dependencies
