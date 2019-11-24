@@ -1,3 +1,45 @@
+#!/bin/bash  
+echo "********** This is a shell script for setup **********"  
+
+echo "********** Fetching Sudo apt-get update, Running  sudo apt-get update **********"  
+echo "********** not running sudo apt-get update **********"
+
+echo "********** Running  sudo apt-get install curl **********"  
+sudo apt-get install curl
+
+echo "********** Fetching Latest Node & NPM Repo **********"  
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+
+echo "********** Installing Latest Node & NPM **********"  
+echo "********** Installation may be halted due pre-existing nodejs/npm version , try running sudo apt-get remove nodejs, verify if nodejs removed by 'which node' or node --version **********"  
+
+sudo apt-get install -y nodejs 
+
+echo "********** Node and Npm Version, Please make sure node version >= 10.x.x and npm version = 6.x.x  **********"  
+node --version
+npm --version
+
+echo "********** Moving to src Directory **********"  
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+cd $DIR/../
+
+echo "********** Verify Directory under parking_lot **********"  
+pwd
+
+echo "********** Installing Dependencies **********"  
+npm install
+
+echo "********** Bundling Things Up **********"  
+npm run prod
+
+echo "********** Running Test Cases **********"  
+npm run test
+
+echo "Done running setup commands, build folder contains bundled code"  
+
+echo "For running Functional Spec Ruby and gem install bundler are needed, these dependencies are not downloaded via this script"  
+echo "As directed, follow README.md for that"  
+
 # Add script to:
 # * Install dependencies
 # * Build/Compile

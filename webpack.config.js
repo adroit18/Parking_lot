@@ -18,13 +18,13 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
   },
-  // optimization: {
-  //   minimizer: [
-  //     new TerserPlugin({
-  //       parallel: 4,
-  //     }),
-  //   ],
-  // },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        parallel: 4,
+      }),
+    ],
+  },
   module: {
     rules:[
       {test: /\.ts$/,use: ['ts-loader']},
