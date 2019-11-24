@@ -23,7 +23,7 @@ class ParkingEngine {
         console.log(logThis);
     }
     public startParker():void{
-        this.interactiveBot.question('', (answer:string)=>this.processCommands(answer))
+        this.interactiveBot.question('', (answer:string)=>this.startParkingBot(answer))
     }
     private closeParker():void{
         this.interactiveBot.close();
@@ -48,6 +48,7 @@ class ParkingEngine {
             if(spot && spot.isSpotAvailable()){
                 const isVehicleDuplication = this.parkingArea.getRegToSpot(regNum);
                 if(isVehicleDuplication){
+                    this.logOutput(`Vehicle with ${regNum} already exists in parking`);
                     return;
                 }else{
                     spot.assignVehicle(vehicle);
@@ -61,8 +62,8 @@ class ParkingEngine {
         }else{
             this.logOutput("Please initialise a parking area first");
         }
-   }
-   private proceedExitProcess(tokeniseCommand:string[]):void{
+    }
+    private proceedExitProcess(tokeniseCommand:string[]):void{
         const spotNumberToEmpty:number = Number(tokeniseCommand[1]);
         if(this.parkingArea){
             const currentParkingMap:Nullable<ParkingMapInterface> = this.parkingArea.getParkingMap()
@@ -73,6 +74,10 @@ class ParkingEngine {
                     const regNum:Nullable<string> = parkedVehicleInfo.getRegNum();
                     const color:Nullable<string> = parkedVehicleInfo.getColor();
                     const spotId:Nullable<number> = spot.getSpotId();
+                    const ticket:Nullable<TicketInterface> = parkedVehicleInfo.getParkingTicket();
+                    if(ticket){
+                        ticket.setTicketStatusPaid();
+                    }
                     if(regNum){
                         this.parkingArea.removeSpotFromRegToSpot(regNum)
                     }
@@ -157,7 +162,7 @@ class ParkingEngine {
             this.logOutput("Please initialise a parking area first");
         }   
     }
-    private processCommands(command:string):void{
+    private startParkingBot(command:string):void{
         const tokeniseCommand:string[] = command.split(this.commandTokeniser);
         const step:string = tokeniseCommand[0];
         switch (step){
