@@ -41,11 +41,13 @@ RSpec.describe 'End To End Suite' do
           "Not found\n"
       ]
     end
-
+    #Modified this test case, reads input from file now, matches to end_with
     it "input from file" do
       pty = PTY.spawn("parking_lot #{File.join(File.dirname(__FILE__), '..', 'fixtures', 'file_input.txt')}")
       print 'Testing file input: '
-      expect(fetch_stdout(pty)).to eq(expected.join(''))
+      cmd = PTY.spawn("cat #{File.join(File.dirname(__FILE__), '..', 'fixtures', 'file_input.txt')}")
+      run_command(pty, fetch_stdout(cmd))
+      expect(fetch_stdout(pty)).to end_with(expected.join(''))
     end
 
     it "interactive input" do
