@@ -7,6 +7,7 @@ var path = require('path');
 
 describe("Parker Engine Test", () => {
     it("full integration test", async() => {
+        console.log("********** RUNNING INTEGRATION TEST **********");
         const inputs = [
             "create_parking_lot 6\n",
             "park KA-01-HH-1234 White\n",
