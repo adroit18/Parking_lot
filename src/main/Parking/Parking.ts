@@ -76,7 +76,7 @@ class Parking implements ParkingInterface{
     }
     public getColorToSpot(key:string):Array<SpotInterface>{
         if(this.colorToSpot){
-            return this.colorToSpot[key];
+            return this.colorToSpot[key] || [];
         }else{
             return [];
         }

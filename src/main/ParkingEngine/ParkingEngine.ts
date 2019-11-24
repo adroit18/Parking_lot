@@ -41,6 +41,10 @@ class ParkingEngine {
     private proceedParkingProcess(tokeniseCommand:string[]):void{
         const regNum:string = tokeniseCommand[1];
         const color:string = tokeniseCommand[2];
+        if(!regNum || !color){
+            this.logOutput("Please Enter a valid command");
+            return;
+        }
         let ticket:TicketInterface = new Ticket(TicketStatus.ACTIVE);
         let vehicle:VehicleInterface = new Vehicle(color,regNum,ticket);
         if(this.parkingArea){
@@ -66,6 +70,11 @@ class ParkingEngine {
     private proceedExitProcess(tokeniseCommand:string[]):void{
         const spotNumberToEmpty:number = Number(tokeniseCommand[1]);
         if(this.parkingArea){
+            const numberOfSpotsAllowed = this.parkingArea.getParkingCapacity();
+            if(spotNumberToEmpty>numberOfSpotsAllowed){
+                this.logOutput("Spot number does not exist")
+                return;
+            }
             const currentParkingMap:Nullable<ParkingMapInterface> = this.parkingArea.getParkingMap()
             if(currentParkingMap){
                 const spot:SpotInterface = currentParkingMap[spotNumberToEmpty-1];
@@ -119,16 +128,16 @@ class ParkingEngine {
     }
     private getRegNumFromColor(tokeniseCommand:string[]):void{
         const colorQuery:string = tokeniseCommand[1];
-            if(this.parkingArea){
-                let regNumsForColor = [];
-                const colorWiseInfo:Array<SpotInterface> = this.parkingArea.getColorToSpot(colorQuery);
-                for(let i = 0;i<colorWiseInfo.length;i+=1){
-                    const vehicle:Nullable<VehicleInterface> = colorWiseInfo[i].getParkedVehicle();
-                   if(vehicle){
-                      regNumsForColor.push(vehicle.getRegNum());
-                  }
+        if(this.parkingArea){
+            let regNumsForColor = [];
+            const colorWiseInfo:Array<SpotInterface> = this.parkingArea.getColorToSpot(colorQuery);
+            for(let i = 0;i<colorWiseInfo.length;i+=1){
+                const vehicle:Nullable<VehicleInterface> = colorWiseInfo[i].getParkedVehicle();
+                if(vehicle){
+                    regNumsForColor.push(vehicle.getRegNum());
+                }
             }
-            this.logOutput(regNumsForColor.join(", "))
+            this.logOutput(regNumsForColor.length == 0 ? "Not found" : regNumsForColor.join(", "))
         }else{
             this.logOutput("Please initialise a parking area first");
         }
@@ -144,7 +153,7 @@ class ParkingEngine {
                         slotNumbersForColor.push(spotId);
                 }
             }
-            this.logOutput(slotNumbersForColor.join(", "))
+            this.logOutput(slotNumbersForColor.length == 0 ? "Not found": slotNumbersForColor.join(", "))
         }else{
             this.logOutput("Please initialise a parking area first");
         }

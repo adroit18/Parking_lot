@@ -167,6 +167,8 @@ describe("Parker Engine Test", () => {
             "park KA-01-HH-9994 Red\n",
             "status\n",
             "create_parking_lot -2\n",
+            "park -2\n",
+            "park green\n",
             "exit"
         ];
         const expectedOut = [
@@ -176,7 +178,9 @@ describe("Parker Engine Test", () => {
             "Please initialise a parking area first",
             "Please initialise a parking area first",
             "Please initialise a parking area first",
-            "Please enter number greater than zero,",
+            "Please enter number greater than zero",
+            "Please Enter a valid command",
+            "Please Enter a valid command,",
         ]
         const response = await cmd.execute(
             `${path.join(__dirname,'../../../build/index.js')}`,
@@ -185,5 +189,37 @@ describe("Parker Engine Test", () => {
         const formattedResp = response.split("\n").join();
         expect(formattedResp).toBe(expectedOut.join());
     });
-
+    it("integration test Not Found Cases", async() => {
+        const inputs = [
+            "create_parking_lot 4\n",
+            "registration_numbers_for_cars_with_colour green\n",
+            "slot_numbers_for_cars_with_colour red\n",
+            "slot_number_for_registration_number 121\n",
+            "park KA-01-HH-9994 Red\n",
+            "park KA-01-HH-1234 White\n",
+            "park KA-01-HH-1235 Red\n",
+            "registration_numbers_for_cars_with_colour Red\n",
+            "slot_numbers_for_cars_with_colour Red\n",
+            "slot_number_for_registration_number KA-01-HH-1235\n",
+            "exit"
+        ];
+        const expectedOut = [
+            "Created a parking lot with 4 slots",
+            "Not found",
+            "Not found",
+            "Not found",
+            "Allocated slot number: 1",
+            "Allocated slot number: 2",
+            "Allocated slot number: 3",
+            "KA-01-HH-9994, KA-01-HH-1235",
+            "1, 3",
+            "3,"
+        ]
+        const response = await cmd.execute(
+            `${path.join(__dirname,'../../../build/index.js')}`,
+            [],
+            inputs);
+        const formattedResp = response.split("\n").join();
+        expect(formattedResp).toBe(expectedOut.join());
+    });
 });
