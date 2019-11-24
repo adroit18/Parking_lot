@@ -1,4 +1,4 @@
-import ParkingEngine from './src/main/Engine/ParkingEngine';
+import ParkingEngine from './src/main/ParkingEngine/ParkingEngine';
 
- let parkingEngine = new ParkingEngine();
- parkingEngine.startParker();
+let parkingEngine = new ParkingEngine();
+parkingEngine.startParker();

@@ -1,8 +1,5 @@
 import Vehicle from './../../main/Vehicle/Vehicle';
-import { TicketStatus } from '../../main/Ticket/TicketInterface';
-import Ticket from '../../main/Ticket/Ticket';
 import Parking from '../../main/Parking/Parking';
-import Spot from '../../main/Spot/Spot';
 
 describe("Parking Area Test", () => {
     it("get Parking Name", () => {
