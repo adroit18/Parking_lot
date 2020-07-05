@@ -1,7 +1,6 @@
 Tech Stack Used :  Object Oriented TypeScript, NodeJs, Webpack [for bundling], Jest [for unit/integration testing]
 
 Points to follow : 
-
 1. Open Terminal.
 
 2. Go to parking_lot directory
