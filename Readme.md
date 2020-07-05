@@ -3,8 +3,11 @@ Tech Stack Used :  Object Oriented TypeScript, NodeJs, Webpack [for bundling], J
 Points to follow : 
 
 1. Open Terminal.
+
 2. Go to parking_lot directory
+
 3 . Run command bin/setup [please make sure you are using sudo su - or su - if needed]
+
 This will create a build folder parallel to bin folder and run unit/integration tests.
 
 * sudo su - (in ubuntu machine) or su - (in case of docker, where sudo package not available) 
